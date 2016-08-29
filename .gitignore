@@ -63,6 +63,7 @@ Module.symvers
 #
 include/config
 include/generated
+scripts/rkp_cfp/tmp
 arch/*/include/generated
 
 # stgit generated dirs
