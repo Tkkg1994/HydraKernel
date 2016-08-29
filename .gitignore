@@ -64,6 +64,7 @@ Module.symvers
 include/config
 include/generated
 scripts/rkp_cfp/tmp
+arch/arm64/boot/dtb/
 arch/*/include/generated
 
 # stgit generated dirs

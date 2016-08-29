@@ -116,7 +116,7 @@ FUNC_BUILD_RAMDISK()
 		rm -f $RDIR/ramdisk/SM-N930F/split_img/boot.img-zImage
 		rm -f $RDIR/ramdisk/SM-N930F/split_img/boot.img-dtb
 		mv -f $RDIR/arch/$ARCH/boot/boot.img-zImage $RDIR/ramdisk/SM-N930F/split_img/boot.img-zImage
-		mv -f $RDIR/arch/$ARCH/boot/boot.img-dtb $RDIR/ramdisk/SM-GN30F/split_img/boot.img-dtb
+		mv -f $RDIR/arch/$ARCH/boot/boot.img-dtb $RDIR/ramdisk/SM-N930F/split_img/boot.img-dtb
 		cd $RDIR/ramdisk/SM-N930F
 		./repackimg.sh
 		echo SEANDROIDENFORCE >> image-new.img
