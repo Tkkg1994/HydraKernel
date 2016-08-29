@@ -1,0 +1,20 @@
+
+on init
+#omr
+    mkdir /omr 0771 system system
+
+on fs
+#omr
+    wait /dev/block/platform/155a0000.ufs/by-name/OMR
+    check_fs /dev/block/platform/155a0000.ufs/by-name/OMR ext4
+    mount ext4 /dev/block/platform/155a0000.ufs/by-name/OMR /omr nosuid nodev barrier=1
+    chown system system /omr
+    chmod 0771 /omr
+
+# redsocks
+service redsocks /system/bin/redsocks -c /data/mptcp/redsocks.conf
+    class main
+    user system
+    group system net_raw net_admin
+    disabled
+
