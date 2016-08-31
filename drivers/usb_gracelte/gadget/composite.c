@@ -21,7 +21,7 @@
 #include <linux/usb/composite.h>
 #include <asm/unaligned.h>
 #ifdef CONFIG_USB_ANDROID_SAMSUNG_COMPOSITE
-#include "function/multi_config.h"
+#include "../function/multi_config.h"
 #endif
 
 #include "u_os_desc.h"

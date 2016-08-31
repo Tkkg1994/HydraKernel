@@ -20,7 +20,7 @@
 #include <linux/usb/ch9.h>
 #include <linux/usb/gadget.h>
 
-#include "udc/gadget_chips.h"
+#include "gadget_chips.h"
 
 /*
  * This should work with endpoints from controller drivers sharing the
