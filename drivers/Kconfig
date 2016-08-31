@@ -94,7 +94,23 @@ source "sound/Kconfig"
 
 source "drivers/hid/Kconfig"
 
-source "drivers/usb/Kconfig"
+menuconfig USB_GRACELTE
+	bool "USB support for gracelte"
+	---help---
+	  This option enables support for gracelte usb
+
+if USB_GRACELTE
+source "drivers/usb_gracelte/Kconfig"
+endif
+
+menuconfig USB_HEROLTE
+	bool "USB support for herolte"
+	---help---
+	  This option enables support for herolte usb
+
+if USB_HEROLTE
+source "drivers/usb_herolte/Kconfig"
+endif
 
 source "drivers/uwb/Kconfig"
 

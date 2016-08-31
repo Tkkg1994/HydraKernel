@@ -92,10 +92,18 @@ obj-$(CONFIG_ATA_OVER_ETH)	+= block/aoe/
 obj-$(CONFIG_PARIDE) 		+= block/paride/
 obj-$(CONFIG_TC)		+= tc/
 obj-$(CONFIG_UWB)		+= uwb/
-obj-$(CONFIG_USB_PHY)		+= usb/
-obj-$(CONFIG_USB)		+= usb/
-obj-$(CONFIG_PCI)		+= usb/
-obj-$(CONFIG_USB_GADGET)	+= usb/
+ifeq ($(CONFIG_USB_GRACELTE), y)
+  obj-$(CONFIG_USB_PHY)		+= usb_gracelte/
+  obj-$(CONFIG_USB)		+= usb_gracelte/
+  obj-$(CONFIG_PCI)		+= usb_gracelte/
+  obj-$(CONFIG_USB_GADGET)	+= usb_gracelte/
+endif
+ifeq ($(CONFIG_USB_HEROLTE), y)
+  obj-$(CONFIG_USB_PHY)		+= usb_herolte/
+  obj-$(CONFIG_USB)		+= usb_herolte/
+  obj-$(CONFIG_PCI)		+= usb_herolte/
+  obj-$(CONFIG_USB_GADGET)	+= usb_herolte/
+endif
 obj-$(CONFIG_SERIO)		+= input/serio/
 obj-$(CONFIG_GAMEPORT)		+= input/gameport/
 obj-$(CONFIG_INPUT)		+= input/
