@@ -13,7 +13,12 @@
 #include <linux/kernel.h>
 #include <linux/err.h>
 #include <linux/usb.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 
 struct external_notify_struct {
 	struct blocking_notifier_head notifier_call_chain;

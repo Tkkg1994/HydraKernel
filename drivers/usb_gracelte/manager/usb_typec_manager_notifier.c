@@ -13,7 +13,12 @@
 #if defined(CONFIG_VBUS_NOTIFIER)
 #include <linux/vbus_notifier.h>
 #endif
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 
 #define MANAGER_WATER_EVENT_ENABLE
 #define DEBUG

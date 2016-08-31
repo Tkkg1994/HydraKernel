@@ -1,5 +1,5 @@
 #!/bin/bash
-# kernel build script by Tkkg1994 v0.5 (optimized from apq8084 kernel source)
+# kernel build script by Tkkg1994 v0.6 (optimized from apq8084 kernel source)
 
 export MODEL=gracelte
 export ARCH=arm64
@@ -19,6 +19,12 @@ DTB_PADDING=0
 if [ $MODEL = gracelte ]
 then
 	KERNEL_DEFCONFIG=HydraKernel-gracelte_defconfig
+else if [ $MODEL = herolte ]
+then
+	KERNEL_DEFCONFIG=HydraKernel-herolte_defconfig
+else [ $MODEL = hero2lte ]
+	KERNEL_DEFCONFIG=HydraKernel-hero2lte_defconfig
+fi
 fi
 
 FUNC_CLEAN_DTB()
@@ -47,6 +53,17 @@ FUNC_BUILD_DTIMAGE_TARGET()
 				exynos8890-gracelte_eur_open_02 exynos8890-gracelte_eur_open_03
 				exynos8890-gracelte_eur_open_05 exynos8890-gracelte_eur_open_07
 				exynos8890-gracelte_eur_open_09 exynos8890-gracelte_eur_open_11"
+		;;
+	herolte)
+		DTSFILES="exynos8890-herolte_eur_open_00 exynos8890-herolte_eur_open_01
+				exynos8890-herolte_eur_open_02 exynos8890-herolte_eur_open_03
+				exynos8890-herolte_eur_open_04 exynos8890-herolte_eur_open_08
+				exynos8890-herolte_eur_open_09"
+		;;
+	hero2lte)
+		DTSFILES="exynos8890-hero2lte_eur_open_00 exynos8890-hero2lte_eur_open_01
+				exynos8890-hero2lte_eur_open_03 exynos8890-hero2lte_eur_open_04
+				exynos8890-hero2lte_eur_open_08"
 		;;
 	*)
 		echo "Unknown device: $MODEL"
@@ -88,6 +105,7 @@ FUNC_BUILD_KERNEL()
         echo "build common config="$KERNEL_DEFCONFIG ""
         echo "build variant config="$MODEL ""
 
+	FUNC_PREPARE_SOURCE
 	FUNC_CLEAN_DTB
 
 	make -j$BUILD_JOB_NUMBER ARCH=$ARCH \
@@ -120,6 +138,43 @@ FUNC_BUILD_RAMDISK()
 		cd $RDIR/ramdisk/SM-N930F
 		./repackimg.sh
 		echo SEANDROIDENFORCE >> image-new.img
+		;;
+	herolte)
+		rm -f $RDIR/ramdisk/SM-G930F/split_img/boot.img-zImage
+		rm -f $RDIR/ramdisk/SM-G930F/split_img/boot.img-dtb
+		mv -f $RDIR/arch/$ARCH/boot/boot.img-zImage $RDIR/ramdisk/SM-G930F/split_img/boot.img-zImage
+		mv -f $RDIR/arch/$ARCH/boot/boot.img-dtb $RDIR/ramdisk/SM-G930F/split_img/boot.img-dtb
+		cd $RDIR/ramdisk/SM-G930F
+		./repackimg.sh
+		echo SEANDROIDENFORCE >> image-new.img
+		;;
+	hero2lte)
+		rm -f $RDIR/ramdisk/SM-G935F/split_img/boot.img-zImage
+		rm -f $RDIR/ramdisk/SM-G935F/split_img/boot.img-dtb
+		mv -f $RDIR/arch/$ARCH/boot/boot.img-zImage $RDIR/ramdisk/SM-G935F/split_img/boot.img-zImage
+		mv -f $RDIR/arch/$ARCH/boot/boot.img-dtb $RDIR/ramdisk/SM-G935F/split_img/boot.img-dtb
+		cd $RDIR/ramdisk/SM-G935F
+		./repackimg.sh
+		echo SEANDROIDENFORCE >> image-new.img
+		;;
+	*)
+		echo "Unknown device: $MODEL"
+		exit 1
+		;;
+	esac
+}
+
+FUNC_PREPARE_SOURCE()
+{
+	case $MODEL in
+	gracelte)
+		cp -f $RDIR/drivers/Kconfig_grace $RDIR/drivers/Kconfig
+		;;
+	herolte)
+		cp -f $RDIR/drivers/Kconfig_hero $RDIR/drivers/Kconfig
+		;;
+	hero2lte)
+		cp -f $RDIR/drivers/Kconfig_hero $RDIR/drivers/Kconfig
 		;;
 	*)
 		echo "Unknown device: $MODEL"

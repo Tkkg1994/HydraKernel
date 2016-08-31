@@ -41,7 +41,12 @@
 #include <asm/io.h>
 #include <linux/mm.h>
 #ifdef CONFIG_USB_NOTIFY_LAYER
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 #endif
 #include "version.h"
 #include "smscusbnet.h"
@@ -3339,9 +3344,14 @@ static int smsc9500_bind(struct usbnet *dev, struct usb_interface *intf)
 	netif_carrier_off(dev->net);
 
 #ifdef CONFIG_USB_NOTIFY_LAYER
+#ifdef CONFIG_USB_HEROLTE
+	register_ovc_func(smsc9500_ovc_gpio_check, dev);
+#endif
+#ifdef CONFIG_USB_GRACELTE
 	register_ovc_func(o_notify, smsc9500_ovc_gpio_check, dev);
+#endif
 	send_otg_notify(o_notify, NOTIFY_EVENT_SMSC_OVC, 1);
-#endif	
+#endif
 
 	SMSC_TRACE(DBG_INIT,"<--------out of bind, return 0\n");
 	return 0;

@@ -1,0 +1,9 @@
+#<Storage Type> <Start Page Index> <Vault Version> <Client Name> <Usage(Vault Name)> <Default State> <Flags>
+
+RPMB 0 1 system_server RemoteLockControl Initial usekey,data_no_hmac
+
+# For Test
+RPMB 100 1 com.samsung.security RemoteLockControlTest Initial usekey,data_no_hmac
+RPMB 110 1 com.samsung.security UseKeyTest None usekey
+RPMB 120 1 com.samsung.security NoKeyTest None nokey
+

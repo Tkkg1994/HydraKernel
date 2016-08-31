@@ -11,7 +11,12 @@
 
 #include <linux/module.h>
 #include <linux/delay.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 #ifdef CONFIG_OF
 #include <linux/of_device.h>
 #include <linux/of_gpio.h>

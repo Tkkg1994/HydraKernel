@@ -15,7 +15,12 @@
 #include <linux/usb.h>
 #include <linux/notifier.h>
 #include <linux/version.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 #include "../core/hub.h"
 
 #define SMARTDOCK_INDEX	1

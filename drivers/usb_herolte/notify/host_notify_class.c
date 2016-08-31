@@ -13,7 +13,12 @@
 #include <linux/slab.h>
 #include <linux/fs.h>
 #include <linux/err.h>
-#include <linux/host_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 
 struct notify_data {
 	struct class *host_notify_class;

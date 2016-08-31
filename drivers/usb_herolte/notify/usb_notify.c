@@ -20,7 +20,12 @@
 #include <linux/err.h>
 #include <linux/wakelock.h>
 #include <linux/kthread.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 #include "dock_notify.h"
 #include "usb_notify_sysfs.h"
 

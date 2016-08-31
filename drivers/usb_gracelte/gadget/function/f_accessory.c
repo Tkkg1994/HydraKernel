@@ -41,7 +41,12 @@
 
 #include <linux/configfs.h>
 #include <linux/usb/composite.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 
 #define MAX_INST_NAME_LEN        40
 #define BULK_BUFFER_SIZE    16384

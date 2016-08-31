@@ -28,7 +28,12 @@
 #include <linux/usb/composite.h>
 #include <linux/usb/gadget.h>
 #include <linux/soc/samsung/exynos-soc.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 
 #include "gadget_chips.h"
 

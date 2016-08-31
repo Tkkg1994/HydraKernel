@@ -40,7 +40,12 @@
 #endif
 
 #if defined(CONFIG_USB_EXTERNAL_NOTIFY)
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 #endif
 
 #include "muic-internal.h"

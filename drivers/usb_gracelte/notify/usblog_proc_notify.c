@@ -19,7 +19,12 @@
 #include <linux/proc_fs.h>
 #include <linux/spinlock.h>
 #include <linux/seq_file.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 
 #define USBLOG_MAX_BUF_SIZE	(1 << 7) /* 128 */
 #define USBLOG_MAX_BUF2_SIZE	(1 << 8) /* 256 */

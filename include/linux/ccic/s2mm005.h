@@ -32,7 +32,12 @@
 #include <linux/firmware.h>
 #include <linux/mutex.h>
 #include <linux/types.h>
-#include <linux/usb_notify.h>
+#ifdef CONFIG_USB_HEROLTE
+#include <linux/usb_notify_hero.h>
+#endif
+#ifdef CONFIG_USB_GRACELTE
+#include <linux/usb_notify_grace.h>
+#endif
 #include <linux/wakelock.h>
 
 #if defined(CONFIG_CCIC_NOTIFIER)
