@@ -128,7 +128,7 @@ static void mfc_qos_operate(struct s5p_mfc_ctx *ctx, int opr_type, int idx)
 				cal_dfs_ext_ctrl(dvfs_int, cal_dfs_rate_lock, false);
 				mfc_debug(2, "QoS extra: changed clk limit -> MO remove\n");
 			}
-			/* remove MO limitation for QoS table[8]~[10] */
+			/* remove MO limitation for QoS table[8]~[11] */
 			bts_ext_scenario_set(TYPE_MFC, TYPE_HIGHPERF, true);
 			dev->extra_qos = EXTRA_NO_LIMIT_MO;
 			MFC_TRACE_CTX("** QOS extra: no limit MO\n");
@@ -197,8 +197,7 @@ static void mfc_qos_add_or_update(struct s5p_mfc_ctx *ctx, int total_mb)
 
 static inline int get_ctx_mb(struct s5p_mfc_ctx *ctx)
 {
-	struct s5p_mfc_dec *dec = NULL;
-	int mb_width, mb_height, fps, ctx_mb;
+	int mb_width, mb_height, fps;
 
 	mb_width = (ctx->img_width + 15) / 16;
 	mb_height = (ctx->img_height + 15) / 16;
@@ -208,15 +207,7 @@ static inline int get_ctx_mb(struct s5p_mfc_ctx *ctx)
 			(ctx->type == MFCINST_ENCODER ? "ENC" : "DEC"),
 			ctx->img_width, ctx->img_height, fps);
 
-	ctx_mb = mb_width * mb_height * fps;
-
-	if (ctx->type == MFCINST_DECODER) {
-		dec = ctx->dec_priv;
-		if (dec && dec->is_10bit)
-			ctx_mb = (ctx_mb * 133) / 100;
-	}
-
-	return ctx_mb;
+	return mb_width * mb_height * fps;
 }
 
 void s5p_mfc_qos_on(struct s5p_mfc_ctx *ctx)

@@ -69,12 +69,6 @@ static int fimc_is_cancel_all_cap_nodes(struct fimc_is_device_ischain *device,
 		}
 
 		sub_vctx = subdev->vctx;
-		if (!sub_vctx) {
-			mperr("sub_vctx is null", device, pipe, src_vctx->video);
-			ret = -EINVAL;
-			continue;
-		}
-
 		sub_framemgr = GET_SUBDEV_FRAMEMGR(subdev);
 
 		framemgr_e_barrier_irqs(sub_framemgr, FMGR_IDX_28, flags);
@@ -287,8 +281,7 @@ static int fimc_is_pipe_callback(struct fimc_is_device_ischain *device,
 	 * and vb2_queue's device addr are different can be happened.
 	 */
 	queue = GET_QUEUE(junction_vctx);
-	if (queue && queue->vbq && queue->vbq->bufs[index])
-		queue->vbq->bufs[index]->state = VB2_BUF_STATE_PREPARED;
+	queue->vbq->bufs[index]->state = VB2_BUF_STATE_PREPARED;
 	ret = CALL_VOPS(junction_vctx, qbuf, &pipe->buf[PIPE_SLOT_JUNCTION][index]);
 	if (ret) {
 		mperr("[F%d] fimc_is_video_qbuf is fail(%d)",
@@ -310,35 +303,15 @@ static int fimc_is_pipe_qbuf(struct fimc_is_video_ctx *vctx,
 	struct fimc_is_video_ctx  *src_vctx, *junction_vctx, *dst_vctx;
 	bool qbuf_proxy = false;
 
-	BUG_ON(!vctx);
-	BUG_ON(!vctx->video);
-
 #ifdef DBG_STREAMING
 	mpinfo("%s(%d)\n", vctx, vctx->video, __func__, buf->index);
 #endif
 	device = GET_DEVICE(vctx);
 	pipe = &device->pipe;
 
-	src_vctx = pipe->vctx[PIPE_SLOT_SRC];
-	if (!src_vctx || !src_vctx->video) {
-		mperr("src_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto p_err;
-	}
-
-	junction_vctx = pipe->vctx[PIPE_SLOT_JUNCTION];
-	if (!junction_vctx || !junction_vctx->video) {
-		mperr("junction_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto p_err;
-	}
-
-	dst_vctx = pipe->vctx[PIPE_SLOT_DST];
-	if (!dst_vctx || !dst_vctx->video) {
-		mperr("dst_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto p_err;
-	}
+	src_vctx = device->pipe.vctx[PIPE_SLOT_SRC];
+	junction_vctx = device->pipe.vctx[PIPE_SLOT_JUNCTION];
+	dst_vctx = device->pipe.vctx[PIPE_SLOT_DST];
 
 	if (test_bit(FIMC_IS_GROUP_PIPE_INPUT, &pipe->dst->state)) {
 		if (junction_vctx->video->id == vctx->video->id ||
@@ -358,7 +331,6 @@ static int fimc_is_pipe_qbuf(struct fimc_is_video_ctx *vctx,
 	if (ret)
 		mperr("fimc_is_video_qbuf(%d) is fail(%d)", device, pipe, vctx->video, buf->index, ret);
 
-p_err:
 	return ret;
 }
 
@@ -378,9 +350,6 @@ static int fimc_is_pipe_dqbuf(struct fimc_is_video_ctx *vctx,
 	struct camera2_node *dst_node, *cap_node;
 	struct fimc_is_queue *queue;
 
-	BUG_ON(!vctx);
-	BUG_ON(!vctx->video);
-
 #ifdef DBG_STREAMING
 	mpinfo("%s\n", vctx, vctx->video, __func__);
 #endif
@@ -388,25 +357,8 @@ static int fimc_is_pipe_dqbuf(struct fimc_is_video_ctx *vctx,
 	device = GET_DEVICE(vctx);
 	pipe = &device->pipe;
 	src_vctx = pipe->vctx[PIPE_SLOT_SRC];
-	if (!src_vctx || !src_vctx->video) {
-		mperr("src_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto pipe_pass;
-	}
-
 	junction_vctx = pipe->vctx[PIPE_SLOT_JUNCTION];
-	if (!junction_vctx || !junction_vctx->video) {
-		mperr("junction_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto pipe_pass;
-	}
-
 	dst_vctx = pipe->vctx[PIPE_SLOT_DST];
-	if (!dst_vctx || !dst_vctx->video) {
-		mperr("dst_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto pipe_pass;
-	}
 
 	if (src_vctx->video->id == vctx->video->id) {
 		/* Source */
@@ -532,8 +484,7 @@ static int fimc_is_pipe_dqbuf(struct fimc_is_video_ctx *vctx,
 		 * and vb2_queue's device addr are different can be happened.
 		 */
 		queue = GET_QUEUE(dst_vctx);
-		if (queue && queue->vbq && queue->vbq->bufs[index])
-			queue->vbq->bufs[index]->state = VB2_BUF_STATE_PREPARED;
+		queue->vbq->bufs[index]->state = VB2_BUF_STATE_PREPARED;
 
 		ret = CALL_VOPS(dst_vctx, qbuf, &pipe->buf[PIPE_SLOT_DST][index]);
 		if (ret)
@@ -566,9 +517,6 @@ static int fimc_is_pipe_done(struct fimc_is_video_ctx *vctx,
 	struct fimc_is_frame *dst_frame;
 	struct fimc_is_video_ctx *dst_vctx;
 
-	BUG_ON(!vctx);
-	BUG_ON(!vctx->video);
-
 #ifdef DBG_STREAMING
 	mpinfo("%s(%d)\n", vctx, vctx->video, __func__, index);
 #endif
@@ -576,11 +524,6 @@ static int fimc_is_pipe_done(struct fimc_is_video_ctx *vctx,
 	device = GET_DEVICE(vctx);
 	pipe = &device->pipe;
 	dst_vctx = pipe->vctx[PIPE_SLOT_DST];
-	if (!dst_vctx || !dst_vctx->video) {
-		mperr("dst_vctx or video is null", device, pipe, vctx->video);
-		ret = -EINVAL;
-		goto p_err;
-	}
 
 	if (dst_vctx->video->id == vctx->video->id) {
 		dst_framemgr = GET_FRAMEMGR(dst_vctx);
@@ -594,7 +537,6 @@ static int fimc_is_pipe_done(struct fimc_is_video_ctx *vctx,
 	if (ret)
 		mperr("fimc_is_video_buffer_done is fail(%d)", device, pipe, vctx->video, ret);
 
-p_err:
 	return ret;
 }
 
