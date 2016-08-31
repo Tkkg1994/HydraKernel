@@ -1289,23 +1289,6 @@ service edmaudit /system/bin/edmaudit
     
 ## WTL_EDM_END
 
-on property:security.knox_kap_mode=true
-    knox_changer ke
-on property:security.knox_kap_mode=false
-    knox_changer kd
-
-on property:security.knox_afw_mode=true
-    knox_changer ae
-on property:security.knox_afw_mode=false
-    knox_changer ad
-
-on property:security.knox_ucs_mode=true
-    knox_changer ue
-on property:security.knox_ucs_mode=false
-    knox_changer ud
-on property:security.knox_ucs_mode=reset
-    knox_changer ur
-
 on property:ro.debuggable=1
     start console
 
