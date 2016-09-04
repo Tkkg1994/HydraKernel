@@ -94,36 +94,7 @@ source "sound/Kconfig"
 
 source "drivers/hid/Kconfig"
 
-menuconfig USB_CHOICE
-	tristate "USB Choice between hero and grace"
-	default y
-	help
-	  You have to decide here which variant you
-	  want to support here
-
-choice
-	prompt "USB Configuration"
-	depends on USB_CHOICE
-	default USB_GRACELTE
-	help
-	  Select right usb version.
-
-config USB_GRACELTE
-	depends on USB_CHOICE
-	bool "gracelte drivers"
-
-config USB_HEROLTE
-	depends on USB_CHOICE
-	bool "herolte drivers"
-endchoice
-
-if USB_HEROLTE
-source "drivers/usb_herolte/Kconfig"
-endif
-
-if USB_GRACELTE
-source "drivers/usb_gracelte/Kconfig"
-endif
+source "drivers/usb/Kconfig"
 
 source "drivers/uwb/Kconfig"
 

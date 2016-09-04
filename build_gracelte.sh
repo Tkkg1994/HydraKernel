@@ -1,7 +1,7 @@
 #!/bin/bash
 # kernel build script by Tkkg1994 v0.6 (optimized from apq8084 kernel source)
 
-export MODEL=herolte
+export MODEL=gracelte
 export ARCH=arm64
 export BUILD_CROSS_COMPILE=../Toolchain/aarch64-sabermod-7.0/bin/aarch64-
 export BUILD_JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
@@ -105,7 +105,6 @@ FUNC_BUILD_KERNEL()
         echo "build common config="$KERNEL_DEFCONFIG ""
         echo "build variant config="$MODEL ""
 
-	FUNC_PREPARE_SOURCE
 	FUNC_CLEAN_DTB
 
 	make -j$BUILD_JOB_NUMBER ARCH=$ARCH \
@@ -156,25 +155,6 @@ FUNC_BUILD_RAMDISK()
 		cd $RDIR/ramdisk/SM-G935F
 		./repackimg.sh
 		echo SEANDROIDENFORCE >> image-new.img
-		;;
-	*)
-		echo "Unknown device: $MODEL"
-		exit 1
-		;;
-	esac
-}
-
-FUNC_PREPARE_SOURCE()
-{
-	case $MODEL in
-	gracelte)
-		cp -f $RDIR/drivers/Kconfig_grace $RDIR/drivers/Kconfig
-		;;
-	herolte)
-		cp -f $RDIR/drivers/Kconfig_hero $RDIR/drivers/Kconfig
-		;;
-	hero2lte)
-		cp -f $RDIR/drivers/Kconfig_hero $RDIR/drivers/Kconfig
 		;;
 	*)
 		echo "Unknown device: $MODEL"
