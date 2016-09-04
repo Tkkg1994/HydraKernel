@@ -20,30 +20,16 @@ ro.dalvik.vm.native.bridge=0
 debug.atrace.tags.enableflags=0
 ro.smps.gain.spk=1.6
 
-ro.config.knox=v00
-ro.security.mdpp.ux=Disabled
-ro.sec.fle.encryption=false
-security.mdpp=
-ro.security.mdpp.ver=
-ro.security.mdpp.release=
-security.mdpp.result=
-ro.hardware.keystore=default
-ro.security.vpnpp.ver=
-ro.security.vpnpp.release=
-ro.securestorage.support=false
-security.mdpp.mass=
 ro.config.tima=0
-ro.config.timaversion=3.0
 ro.config.dmverity=false
 ro.config.rkp=false
-ro.config.kap_default_on=false
 ro.config.kap=false
-ddk.set.afbc=
-ro.security.vaultkeeper.feature=0
+ro.sec.fle.encryption=false
+ro.securestorage.support=false
 
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Fri Aug 19 16:42:00 KST 2016
-ro.bootimage.build.date.utc=1471592520
-ro.bootimage.build.fingerprint=samsung/graceltexx/gracelte:6.0.1/MMB29K/N930FXXU1BPH7:user/test-keys
+ro.bootimage.build.date=Fri Aug 26 14:28:18 KST 2016
+ro.bootimage.build.date.utc=1472189298
+ro.bootimage.build.fingerprint=samsung/graceltexx/gracelte:6.0.1/MMB29K/N930FXXU1BPHA:user/test-keys
