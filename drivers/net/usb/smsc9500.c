@@ -41,13 +41,9 @@
 #include <asm/io.h>
 #include <linux/mm.h>
 #ifdef CONFIG_USB_NOTIFY_LAYER
-#ifdef CONFIG_USB_HEROLTE
-#include <linux/usb_notify_hero.h>
+#include <linux/usb_notify.h>
 #endif
-#ifdef CONFIG_USB_GRACELTE
-#include <linux/usb_notify_grace.h>
-#endif
-#endif
+
 #include "version.h"
 #include "smscusbnet.h"
 #include "smsc9500.h"

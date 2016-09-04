@@ -105,7 +105,6 @@ FUNC_BUILD_KERNEL()
         echo "build common config="$KERNEL_DEFCONFIG ""
         echo "build variant config="$MODEL ""
 
-	FUNC_PREPARE_SOURCE
 	FUNC_CLEAN_DTB
 
 	make -j$BUILD_JOB_NUMBER ARCH=$ARCH \
@@ -156,25 +155,6 @@ FUNC_BUILD_RAMDISK()
 		cd $RDIR/ramdisk/SM-G935F
 		./repackimg.sh
 		echo SEANDROIDENFORCE >> image-new.img
-		;;
-	*)
-		echo "Unknown device: $MODEL"
-		exit 1
-		;;
-	esac
-}
-
-FUNC_PREPARE_SOURCE()
-{
-	case $MODEL in
-	gracelte)
-		cp -f $RDIR/drivers/Kconfig_grace $RDIR/drivers/Kconfig
-		;;
-	herolte)
-		cp -f $RDIR/drivers/Kconfig_hero $RDIR/drivers/Kconfig
-		;;
-	hero2lte)
-		cp -f $RDIR/drivers/Kconfig_hero $RDIR/drivers/Kconfig
 		;;
 	*)
 		echo "Unknown device: $MODEL"

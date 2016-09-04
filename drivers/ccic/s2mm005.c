@@ -21,12 +21,7 @@
 #include <linux/ccic/s2mm005.h>
 #include <linux/ccic/s2mm005_ext.h>
 #include <linux/ccic/s2mm005_fw.h>
-#ifdef CONFIG_USB_HEROLTE
-#include <linux/usb_notify_hero.h>
-#endif
-#ifdef CONFIG_USB_GRACELTE
-#include <linux/usb_notify_grace.h>
-#endif
+#include <linux/usb_notify.h>
 
 extern struct device *ccic_device;
 extern struct pdic_notifier_struct pd_noti;

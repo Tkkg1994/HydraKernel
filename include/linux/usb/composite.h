@@ -42,12 +42,7 @@
 #include <linux/configfs.h>
 
 #ifdef CONFIG_USB_ANDROID_SAMSUNG_COMPOSITE
-#ifdef CONFIG_USB_HEROLTE
-#include <linux/usb_notify_hero.h>
-#endif
-#ifdef CONFIG_USB_GRACELTE
-#include <linux/usb_notify_grace.h>
-#endif
+#include <linux/usb_notify.h>
 #include <linux/gpio.h>
 #endif
 /*
