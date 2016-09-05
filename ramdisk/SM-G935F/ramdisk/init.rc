@@ -1328,9 +1328,6 @@ service servicemanager /system/bin/servicemanager
     onrestart restart sensorhubservice
     onrestart restart TvoutService_C
 
-service vaultkeeperd /system/bin/vaultkeeperd
-    class core
-
 service vold /system/bin/vold \
         --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
         --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0

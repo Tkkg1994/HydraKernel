@@ -650,7 +650,7 @@
 		pinctrl-0 = <&uart3_bus>;
 		clocks = <&clock 260>, <&clock 265>, <&clock 265>;
 		clock-names = "gate_pclk3", "gate_uart3", "sclk_uart3";
-		status = "disabled";
+		status = "okay";
 	};
 
 	serial_4: uart@14C50000 {
@@ -1873,7 +1873,7 @@
 		ip_ver = <14>;
 		clock_rate = <400000000>;
 		min_rate = <100000>;
-		num_qos_steps = <12>;
+		num_qos_steps = <11>;
 		mfc_qos_table {
 			mfc_qos_variant_0 {
 				thrd_mb = <0>;
@@ -1884,7 +1884,7 @@
 				freq_kfc = <0>;
 				has_enc_table = <0>;
 			};
-			mfc_qos_variant_1 {		/* Emc table */
+			mfc_qos_variant_1 {		/* Enc table */
 				thrd_mb = <108000>;
 				freq_mfc = <168000>;
 				freq_int = <127000>;
@@ -1960,12 +1960,12 @@
 				thrd_mb = <1468800>;
 				freq_mfc = <598000>;
 				freq_int = <690000>;
-				freq_mif = <845000>;
+				freq_mif = <1144000>;
 				freq_cpu = <0>;
 				freq_kfc = <0>;
 				has_enc_table = <1>;
 			};
-			mfc_qos_variant_10 {		/* Enc table */
+			mfc_qos_variant_10 {
 				thrd_mb = <1958400>;
 				freq_mfc = <598000>;
 				freq_int = <690000>;
@@ -1973,15 +1973,6 @@
 				freq_cpu = <0>;
 				freq_kfc = <0>;
 				has_enc_table = <0>;
-			};
-			mfc_qos_variant_11 {
-				thrd_mb = <1958400>;
-				freq_mfc = <598000>;
-				freq_int = <690000>;
-				freq_mif = <1144000>;
-				freq_cpu = <0>;
-				freq_kfc = <0>;
-				has_enc_table = <1>;
 			};
 		};
 	};
