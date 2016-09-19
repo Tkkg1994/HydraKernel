@@ -684,12 +684,6 @@ service fingerprintd /system/bin/fingerprintd
     user system
     group system
 
-# irisd
-service irisd /system/bin/irisd
-    class late_start
-    user system
-    group system
-
 # Copy DRM Key
     copy /system/app/wv.keys /factory/wv.keys
 
@@ -785,20 +779,6 @@ on property:ro.multisim.simslotcount=2
 	socket cellgeofence seqpacket 0660 gps system
 	user gps
 	group system inet
-
-# emergency firmware update
-on firmware
-    mount_all /fstab.samsungexynos8890.fwup
-    class_start firmware_update
-
-# Emergency Firmware Update
-service fwup /sbin/ffu -a
-    class firmware_update
-    user root
-    group root
-    seclabel u:r:ffu:s0
-    critical
-    oneshot
 
 # SecEDS
 service TvoutService_C /system/bin/bintvoutservice

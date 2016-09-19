@@ -89,7 +89,3 @@ service goldfish-logcat /system/bin/logcat -Q
 service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
-
-service irisd /system/bin/irisd
-    class late_start
-    user system
