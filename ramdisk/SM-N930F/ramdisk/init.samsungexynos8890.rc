@@ -786,20 +786,6 @@ on property:ro.multisim.simslotcount=2
 	user gps
 	group system inet
 
-# emergency firmware update
-on firmware
-    mount_all /fstab.samsungexynos8890.fwup
-    class_start firmware_update
-
-# Emergency Firmware Update
-service fwup /sbin/ffu -a
-    class firmware_update
-    user root
-    group root
-    seclabel u:r:ffu:s0
-    critical
-    oneshot
-
 # Secure Storage startup
 service secure_storage /system/bin/secure_storage_daemon
     class core
