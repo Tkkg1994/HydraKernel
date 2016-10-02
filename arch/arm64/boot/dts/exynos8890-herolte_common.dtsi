@@ -1139,7 +1139,6 @@
 		only_once_tune;
 		sd-uhs-sdr50;
 		sd-uhs-sdr104;
-		card-detect-gpio;
 		bypass-smu;
 		bypass-for-allpass;
 		clock-gate;
@@ -1155,13 +1154,11 @@
 		data-timeout = <200>;
 		hto-timeout = <550>;
 		clock-frequency = <800000000>;
-		samsung,dw-mshc-sdr-timing = <3 0 3 0>;
+		samsung,dw-mshc-sdr-timing = <3 0 2 0>;
 		samsung,dw-mshc-ddr-timing = <3 0 2 1>;
-		samsung,dw-mshc-sdr50-timing = <3 0 4 2>;
-		samsung,dw-mshc-sdr104-timing = <3 0 3 0>;
 
-		num-ref-clks = <9>;
-		ciu_clkin = <25 50 50 25 50 100 200 50 50>;
+		num-ref-clks = <8>;
+		ciu_clkin = <25 50 50 100 200 100 200 200>;
 
 		/* Swapping clock drive strength */
 		clk-drive-number = <4>;
@@ -1178,21 +1175,12 @@
 
 		card-detect = <&gpa1 5 0xf>;
 		sec-sd-slot-type = <2>;
+		vmmc-gpio = <&gpa3 7 1>;
 		slot@0 {
 			reg = <0>;
 			bus-width = <4>;
 			disable-wp;
 		};
-	};
-
-	sd_fixed_vcc: fixedregulator@3 {
-		compatible = "regulator-fixed";
-		regulator-name = "vmmc";
-		gpio = <&gpe0 5 1>;
-		regulator-min-microvolt = <2800000>;
-		regulator-max-microvolt = <2800000>;
-		enable-active-high;
-		regulator-initial-mode = <0>;
 	};
 
 	pcie0@157A0000 {

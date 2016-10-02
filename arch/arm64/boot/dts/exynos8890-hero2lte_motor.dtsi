@@ -14,11 +14,8 @@
 		status = "okay";
 		haptic,model = <1>;
 		haptic,max_timeout = <10000>;
-		/* for multi-frequency */
-		haptic,multi_frequency = <5>;
-		/* frequency     alert low   mid   high  0 */
-		haptic,duty   = <46386 61848 49478 37108 41231>;
-		haptic,period = <48828 65104 52083 39062 43402>;
+		haptic,duty = <32850>;
+		haptic,period = <37820>;
 		haptic,reg2 = <0x82>;
 		haptic,pwm_id = <1>;
 		haptic,regulator_name = "VDD_MOT_3.3V";
