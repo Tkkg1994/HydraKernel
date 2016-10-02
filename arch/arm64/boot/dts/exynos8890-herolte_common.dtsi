@@ -1139,6 +1139,7 @@
 		only_once_tune;
 		sd-uhs-sdr50;
 		sd-uhs-sdr104;
+		card-detect-gpio;
 		bypass-smu;
 		bypass-for-allpass;
 		clock-gate;
@@ -1154,11 +1155,13 @@
 		data-timeout = <200>;
 		hto-timeout = <550>;
 		clock-frequency = <800000000>;
-		samsung,dw-mshc-sdr-timing = <3 0 2 0>;
+		samsung,dw-mshc-sdr-timing = <3 0 3 0>;
 		samsung,dw-mshc-ddr-timing = <3 0 2 1>;
+		samsung,dw-mshc-sdr50-timing = <3 0 4 2>;
+		samsung,dw-mshc-sdr104-timing = <3 0 3 0>;
 
-		num-ref-clks = <8>;
-		ciu_clkin = <25 50 50 100 200 100 200 200>;
+		num-ref-clks = <9>;
+		ciu_clkin = <25 50 50 25 50 100 200 50 50>;
 
 		/* Swapping clock drive strength */
 		clk-drive-number = <4>;
@@ -1175,12 +1178,21 @@
 
 		card-detect = <&gpa1 5 0xf>;
 		sec-sd-slot-type = <2>;
-		vmmc-gpio = <&gpa3 7 1>;
 		slot@0 {
 			reg = <0>;
 			bus-width = <4>;
 			disable-wp;
 		};
+	};
+
+	sd_fixed_vcc: fixedregulator@3 {
+		compatible = "regulator-fixed";
+		regulator-name = "vmmc";
+		gpio = <&gpe0 5 1>;
+		regulator-min-microvolt = <2800000>;
+		regulator-max-microvolt = <2800000>;
+		enable-active-high;
+		regulator-initial-mode = <0>;
 	};
 
 	pcie0@157A0000 {
@@ -2080,7 +2092,6 @@
 	#define SENSOR_SCENARIO_VISION		1
 	#define SENSOR_SCENARIO_EXTERNAL	2
 	#define SENSOR_SCENARIO_OIS_FACTORY	3
-	#define SENSOR_SCENARIO_SECURE		6
 	#define SENSOR_SCENARIO_VIRTUAL		9
 	#define FLITE_ID_NOTHING 100
 
@@ -2103,7 +2114,7 @@
 	};
 
 	fimc_is_sensor2: fimc_is_sensor@14010000 {
-		scenario = <SENSOR_SCENARIO_SECURE>;	/* Secure */
+		scenario = <SENSOR_SCENARIO_NORMAL>;	/* Normal, Vision, OIS etc */
 		id = <2>;
 		csi_ch = <1>;
 		flite_ch = <FLITE_ID_NOTHING>;
@@ -2146,13 +2157,12 @@
 		vender {
 			rear_sensor_id = <109>; /* imx240:104,  imx260:109, 2L1:29*/
 			front_sensor_id = <21>;
-			secure_sensor_id = <305>;
 			use_module_check;
 			use_ois_hsi2c;
 			use_ois;
 			check_sensor_vendor;
 
-			total_camera_num = <3>;
+			total_camera_num = <2>;
 			camera_info0 {				// 0 : rear
 				isp = <0>;			/* 0 : INT , 1 : EXT , 2 : SOC */
 				cal_memory = <1>;		/* 0 : N , 1 : FROM , 2 : EEPROM , 3 : OTP  */
@@ -2173,17 +2183,6 @@
 				fw_write = <0>;		/* 0 : N,  1 : OS, 2 : SD, 3 : ALL */
 				fw_dump = <0>;		/* 0 : N , 1 : Y  */
 				companion = <1>;		/* 0 : N , 1 : Y  */
-				ois = <0>;			/* 0 : N , 1 : Y  */
-			};
-			camera_info2 {				// 2 : iris
-				isp = <2>;			/* 0 : INT , 1 : EXT , 2 : SOC */
-				cal_memory = <0>;		/* 0 : N , 1 : FROM , 2 : EEPROM , 3 : OTP  */
-				read_version = <1>;		/* 0 : SYSFS , 1 : CAMON */
-				core_voltage = <0>;		/* 0 : N , 1 : Y  */
-				upgrade = <0>;		/* 0 : N , 1 : SYSFS , 2 : CAMON */
-				fw_write = <0>;		/* 0 : N,  1 : OS, 2 : SD, 3 : ALL */
-				fw_dump = <0>;		/* 0 : N , 1 : Y  */
-				companion = <0>;		/* 0 : N , 1 : Y  */
 				ois = <0>;			/* 0 : N , 1 : Y  */
 			};
 		};
@@ -2406,13 +2405,13 @@
 				video_high_speed_60fps_swvdis_cam = <DVFS_CAM_L1>;
 				video_high_speed_60fps_swvdis_mif = <DVFS_MIF_L5>;
 				video_high_speed_60fps_swvdis_i2c = <0>;
-				video_high_speed_60fps_swvdis_hpg = <6>;
+				video_high_speed_60fps_swvdis_hpg = <1>;
 
 				video_high_speed_60fps_int = <DVFS_INT_L4>;
 				video_high_speed_60fps_cam = <DVFS_CAM_L1>;
 				video_high_speed_60fps_mif = <DVFS_MIF_L5>;
 				video_high_speed_60fps_i2c = <0>;
-				video_high_speed_60fps_hpg = <6>;
+				video_high_speed_60fps_hpg = <1>;
 
 				video_high_speed_120fps_int = <DVFS_INT_L2>;
 				video_high_speed_120fps_cam = <DVFS_CAM_L1>;
