@@ -118,6 +118,13 @@ on post-fs-data
     chown system radio /sys/class/power_supply/battery/batt_self_discharging_control
     chown system radio /sys/class/power_supply/battery/batt_inbat_wireless_cs100
 
+#Private Mode
+    mkdir /mnt/shell/privatemode 0700 system system
+    mkdir /storage/Private 0000 system system
+    mkdir /data/privatemode 0770 system system
+    chown system system /data/privatemode
+    restorecon /data/privatemode
+
 # Iris
     mkdir /data/bio 0770 system system
     mkdir /data/bio/ir 0770 system system
@@ -728,6 +735,7 @@ on property:ro.debuggable=1
 # LPM
 on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/155a0000.ufs/by-name/SYSTEM /system support_scfs wait ro
+    mount f2fs /dev/block/platform/155a0000.ufs/by-name/SYSTEM /system wait ro
 
 on property:ro.bootmode=charger
     wait /dev/block/platform/155a0000.ufs/by-name/EFS
