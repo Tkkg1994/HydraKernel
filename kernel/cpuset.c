@@ -2060,7 +2060,7 @@ static int cpuset_allow_attach(struct cgroup_subsys_state *css,
 	}
 
 	return 0;
-};
+}
 
 /*
  * Make sure the new task conform to the current state of its parent,
