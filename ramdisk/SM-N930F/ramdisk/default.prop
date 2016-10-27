@@ -30,6 +30,6 @@ ro.securestorage.support=false
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Fri Sep 16 01:15:33 KST 2016
-ro.bootimage.build.date.utc=1473956133
-ro.bootimage.build.fingerprint=samsung/graceltexx/gracelte:6.0.1/MMB29K/N930FXXU2BPI7:user/test-keys
+ro.bootimage.build.date=Sun Oct 16 17:38:39 KST 2016
+ro.bootimage.build.date.utc=1476607119
+ro.bootimage.build.fingerprint=samsung/graceltexx/gracelte:6.0.1/MMB29K/N930FXXU2BPJ6:user/test-keys
