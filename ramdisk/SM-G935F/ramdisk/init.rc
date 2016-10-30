@@ -1055,7 +1055,9 @@ on boot
    chown system radio /sys/class/power_supply/battery/cisd_count_soc
    chmod 0664 /sys/class/power_supply/battery/cisd_count_soc
    chown system radio /sys/class/power_supply/battery/cisd_fullcaprep_max
-   chmod 0664 /sys/class/power_supply/battery/cisd_fullcaprep_max
+   chmod 0660 /sys/class/power_supply/battery/cisd_fullcaprep_max
+   chown system radio /sys/class/power_supply/battery/cisd_data
+   chmod 0660 /sys/class/power_supply/battery/cisd_data
    chown system system /efs/FactoryApp/cisd_count_cap
    chmod 0644 /efs/FactoryApp/cisd_count_cap
    chown system system /efs/FactoryApp/cisd_count_soc
@@ -1065,9 +1067,13 @@ on boot
    chown system radio /sys/class/power_supply/battery/designcap_corrupt
    chmod 0644 /sys/class/power_supply/battery/designcap_corrupt
    chown system system /efs/FactoryApp/cisd_fullcaprep_max
-   chmod 0644 /efs/FactoryApp/cisd_fullcaprep_max
+   chmod 0640 /efs/FactoryApp/cisd_fullcaprep_max
+   chown system system /efs/FactoryApp/cisd_data
+   chmod 0640 /efs/FactoryApp/cisd_data
    chown radio system /efs/Battery/batt_capacity_max
    chmod 0664 /efs/Battery/batt_capacity_max
+
+   chmod 0664 /efs/FactoryApp/BattType
 
 # usb detect
     mkdir /dev/bus 0755 root root
@@ -1178,13 +1184,17 @@ on charger
     chown system radio /sys/class/power_supply/battery/cisd_count_soc
     chmod 0664 /sys/class/power_supply/battery/cisd_count_soc
     chown system radio /sys/class/power_supply/battery/cisd_fullcaprep_max
-    chmod 0664 /sys/class/power_supply/battery/cisd_fullcaprep_max
+    chmod 0660 /sys/class/power_supply/battery/cisd_fullcaprep_max
+    chown system radio /sys/class/power_supply/battery/cisd_data
+    chmod 0660 /sys/class/power_supply/battery/cisd_data
     chown system system /efs/FactoryApp/cisd_count_cap
     chmod 0644 /efs/FactoryApp/cisd_count_cap
     chown system system /efs/FactoryApp/cisd_count_soc
     chmod 0644 /efs/FactoryApp/cisd_count_soc
     chown system system /efs/FactoryApp/cisd_fullcaprep_max
-    chmod 0644 /efs/FactoryApp/cisd_fullcaprep_max
+    chmod 0640 /efs/FactoryApp/cisd_fullcaprep_max
+    chown system system /efs/FactoryApp/cisd_data
+    chmod 0640 /efs/FactoryApp/cisd_data
     chown radio system /efs
     chmod 0771 /efs
     mkdir /efs/Battery 0775 radio system
