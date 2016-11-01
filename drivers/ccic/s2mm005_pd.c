@@ -194,7 +194,9 @@ void process_pd(void *data, u8 plug_attach_done, u8 *pdic_attach, MSG_IRQ_STATUS
 	uint16_t REG_ADD;
 	uint8_t rp_currentlvl, is_src;
 	REQUEST_FIXED_SUPPLY_STRUCT_Typedef *request_power_number;
+#ifdef CONFIG_USB_TYPEC_MANAGER_NOTIFIER
 	CC_NOTI_ATTACH_TYPEDEF pd_notifier;
+#endif
 
 	printk("%s\n",__func__);
 
@@ -279,6 +281,6 @@ void process_pd(void *data, u8 plug_attach_done, u8 *pdic_attach, MSG_IRQ_STATUS
 		pd_noti.sink_status.selected_pdo_num = 0;
 		pd_noti.event = PDIC_NOTIFY_EVENT_DETACH;
 	}
-	pdic_notifier_call(pd_noti);
+	pdic_notifier_call(&pd_noti);
 #endif
 }
