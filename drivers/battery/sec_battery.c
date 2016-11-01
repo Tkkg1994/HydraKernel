@@ -6394,9 +6394,9 @@ static int batt_pdic_handle_notification(struct notifier_block *nb,
 			battery->wire_status = POWER_SUPPLY_TYPE_PDIC;
 			battery->pdic_attach = true;
 			pr_info("%s: total pdo : %d, selected pdo : %d\n", __func__,
-					battery->pdic_info.sink_status.total_pdo_num,
+					battery->pdic_info.sink_status.available_pdo_num,
 					battery->pdic_info.sink_status.selected_pdo_num);
-			for(i=1; i<= battery->pdic_info.sink_status.total_pdo_num; i++)
+			for(i=1; i<= battery->pdic_info.sink_status.available_pdo_num; i++)
 			{
 				pr_info("%s: power_list[%d], voltage : %d, current :%d\n", __func__, i,
 						battery->pdic_info.sink_status.power_list[i].max_voltage,
